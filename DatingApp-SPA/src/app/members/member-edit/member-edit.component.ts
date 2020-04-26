@@ -5,7 +5,6 @@ import { AlertifyService } from 'src/app/Services/alertify.service';
 import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/Services/user.service';
 import { AuthService } from 'src/app/Services/auth.service';
-
 @Component({
   selector: 'app-member-edit',
   templateUrl: './member-edit.component.html',

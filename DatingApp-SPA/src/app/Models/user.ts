@@ -1,8 +1,9 @@
 import { Photo } from './photo';
 
-export interface User {
+export class User {
   id: number;
   username: string;
+  password: string;
   knownAs: string;
   age: number;
   gender: string;

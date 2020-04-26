@@ -5,7 +5,8 @@
     </div>
     <div class="col-sm-8">
       <div *ngIf="editForm.dirty" class="alert alert-info">
-        <strong>Information:</strong>You have made changes. Any unsaved changes will be lost!
+        <strong>Information:</strong>You have made changes. Any unsaved changes
+        will be lost!
       </div>
     </div>
   </div>
@@ -14,7 +15,7 @@
       <div class="card">
         <img
           class="card-img-top img-thumbnail"
-          src="{{ user.photoUrl }}"
+          src="{{ user.photoUrl || '../../../../../assets/user.jpg' }}"
           alt="{{ user.knownAs }}"
         />
         <div class="card-body">
@@ -28,15 +29,21 @@
           </div>
           <div>
             <strong>Last Active</strong>
-            <p>{{ user.lastActive }}</p>
+            <p>{{ user.lastActive}}</p>
           </div>
           <div>
             <strong>Member since</strong>
-            <p>{{ user.created }}</p>
+            <p>{{ user.created | date: 'mediumDate'}}</p>
           </div>
         </div>
         <div class="card-footer">
-          <button  [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block w-100">Save Changes</button>
+          <button
+            [disabled]="!editForm.dirty"
+            form="editForm"
+            class="btn btn-success btn-block w-100"
+          >
+            Save Changes
+          </button>
         </div>
       </div>
     </div>
@@ -86,7 +93,7 @@
             </form>
           </tab>
           <tab heading="Edit Photos">
-            <p>Photo edit will go here</p>
+            <app-photo-editor [photos]="user.photos"></app-photo-editor>
           </tab>
         </tabset>
       </div>
