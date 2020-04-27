@@ -34,6 +34,7 @@ import { UserService } from './Services/user.service';
 import { AlertifyService } from './Services/alertify.service';
 import { AuthService } from './Services/auth.service';
 import { ErrorInterceptorProvider } from './Services/error.interceptor';
+import { ListsResolver } from './Resolvers/lists.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -86,6 +87,7 @@ export function tokenGetter() {
     MemberDetailResolver,
     MemberEditResolver,
     MemberListResolver,
+    ListsResolver,
   ],
   bootstrap: [AppComponent],
 })
