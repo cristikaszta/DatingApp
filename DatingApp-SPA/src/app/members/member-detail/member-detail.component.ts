@@ -1,25 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 import { AlertifyService } from 'src/app/Services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import {
+  NgxGalleryOptions,
+  NgxGalleryImage,
+  NgxGalleryAnimation,
+} from '@kolkov/ngx-gallery';
+import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
 
 @Component({
   selector: 'app-member-detail',
   templateUrl: './member-detail.component.html',
-  styleUrls: ['./member-detail.component.css']
+  styleUrls: ['./member-detail.component.css'],
 })
 export class MemberDetailComponent implements OnInit {
+  @ViewChild('memberTabs', { static: true }) memberTabs: TabsetComponent;
   user: User;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private userService: UserService, private alertify: AlertifyService, private route: ActivatedRoute) { }
+  constructor(
+    private userService: UserService,
+    private alertify: AlertifyService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     //loadUser();
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       this.user = data['user'];
     });
 
@@ -33,13 +43,17 @@ export class MemberDetailComponent implements OnInit {
     //     preview: false
     //   }
     // ];
+    this.route.queryParams.subscribe((params) => {
+      const selectedTab = params['tab'];
+      this.memberTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
+    });
 
     this.galleryOptions = [
       {
         width: '600px',
         height: '400px',
         thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide
+        imageAnimation: NgxGalleryAnimation.Slide,
       },
       // max-width 800
       {
@@ -49,17 +63,16 @@ export class MemberDetailComponent implements OnInit {
         imagePercent: 80,
         thumbnailsPercent: 20,
         thumbnailsMargin: 20,
-        thumbnailMargin: 20
+        thumbnailMargin: 20,
       },
       // max-width 400
       {
         breakpoint: 400,
-        preview: false
-      }
+        preview: false,
+      },
     ];
 
     this.galleryImages = this.getImages();
-
   }
 
   // loadUser() {
@@ -70,7 +83,6 @@ export class MemberDetailComponent implements OnInit {
   //   });
   // }
 
-
   getImages() {
     const imageUrls = [];
     for (const photo of this.user.photos) {
@@ -78,9 +90,13 @@ export class MemberDetailComponent implements OnInit {
         small: photo.url,
         medium: photo.url,
         big: photo.url,
-        description: photo.description
+        description: photo.description,
       });
     }
     return imageUrls;
+  }
+
+  selectTab(tabId: number) {
+    this.memberTabs.tabs[tabId].active = true;
   }
 }

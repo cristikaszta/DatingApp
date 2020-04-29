@@ -20,6 +20,8 @@ import { PreventUnsavedChanges } from './Guards/prevent-unsaved-changes.guard';
 import { MemberDetailResolver } from './Resolvers/member-detail.resolver';
 import { MemberListResolver } from './Resolvers/member-list.resolver';
 import { MemberEditResolver } from './Resolvers/member-edit.resolver';
+import { ListsResolver } from './Resolvers/lists.resolver';
+import { MessagesResolver } from './Resolvers/messages-resolver';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
@@ -29,12 +31,12 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MessagesComponent } from './messages/messages.component';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 import { ListComponent } from './list/list.component';
 import { UserService } from './Services/user.service';
 import { AlertifyService } from './Services/alertify.service';
 import { AuthService } from './Services/auth.service';
 import { ErrorInterceptorProvider } from './Services/error.interceptor';
-import { ListsResolver } from './Resolvers/lists.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -53,6 +55,7 @@ export function tokenGetter() {
     MemberDetailComponent,
     MemberEditComponent,
     PhotoEditorComponent,
+    MemberMessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +91,7 @@ export function tokenGetter() {
     MemberEditResolver,
     MemberListResolver,
     ListsResolver,
+    MessagesResolver,
   ],
   bootstrap: [AppComponent],
 })
